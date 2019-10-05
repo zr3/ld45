@@ -82,15 +82,15 @@ public class Player : MonoBehaviour
         HandlePhysics();
     }
 
-    private void OnDrawGizmos()
-    {
-        var anchor = transform.position + Vector3.up * 2;
-        var scale = 5f;
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(anchor, Power * PowerFactor * transform.forward * Time.deltaTime * scale);
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(anchor, Vector3.Dot(WorldVelocity, transform.right) * -KeelDrag * transform.right * Time.deltaTime * scale);
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawRay(anchor, -WorldVelocity.normalized * Time.deltaTime * scale);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    var anchor = transform.position + Vector3.up * 2;
+    //    var scale = 5f;
+    //    Gizmos.color = Color.green;
+    //    Gizmos.DrawRay(anchor, Power * PowerFactor * transform.forward * Time.deltaTime * scale);
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawRay(anchor, Vector3.Dot(WorldVelocity, transform.right) * -KeelDrag * transform.right * Time.deltaTime * scale);
+    //    Gizmos.color = Color.magenta;
+    //    Gizmos.DrawRay(anchor, -WorldVelocity.normalized * Time.deltaTime * scale);
+    //}
 }
