@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     public Quaternion IntendedDirection;
     public Vector3 WorldVelocity;
     public float PowerFactor = 5;
+    public bool SailActive = false;
+    public bool SailAvailable = false;
 
     [Header("Configuration")]
     public float RotationSensitivity = 360;
@@ -45,6 +47,7 @@ public class Player : MonoBehaviour
         Power = Mathf.Clamp01(directionInput.y);
         Drag = Mathf.Clamp01(-directionInput.y);
         IntendedDirection *= Quaternion.AngleAxis(RotationSensitivity * Time.deltaTime * directionInput.x, Vector3.up);
+        SailActive = SailAvailable && Input.GetKey(KeyCode.LeftShift);
     }
 
     private void HandlePhysics()
@@ -56,9 +59,11 @@ public class Player : MonoBehaviour
 
         // add power
         var deltaVelocity = Vector3.zero;
-        if (WorldVelocity.magnitude < MaxSpeed)
+        var sailFactor = SailActive ? 2 : 1;
+        if (WorldVelocity.magnitude < MaxSpeed * sailFactor)
         {
-            deltaVelocity += Power * PowerFactor * transform.forward * Time.deltaTime;
+            var effectivePowerFactor = PowerFactor * sailFactor;
+            deltaVelocity += Power * effectivePowerFactor * transform.forward * Time.deltaTime;
         }
 
         // add drag

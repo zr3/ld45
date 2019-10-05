@@ -19,7 +19,7 @@ not even time
     - reunite lovers
         - bring letter from one to the other
         - learn happy jig
-    - feed hungry guy
+    - feed hungry guy ✅
         - gather 5 bananas and give
         - teaches time slowdown song
     - heal mariner
