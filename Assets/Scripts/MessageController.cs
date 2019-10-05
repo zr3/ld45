@@ -18,7 +18,7 @@ public class MessageController : MonoBehaviour {
     {
         _instance = this;
         messages = new Queue<string>(5);
-        text = GetComponentInChildren<Text>();
+        text = messagePanel.GetComponentInChildren<Text>();
         creepyWords = new List<string>
         {
             "c'thulu", "dark", "doom", "d'oom", "doom", "ne'thet", "hell", "xo#8", "FEEDFEEDFEED", "will eat you", "f02 02b", " leavenow ", "monsters", "FEED IT  ", "die", "---------", "what did you say to me you little", "", "Z", "X", "T", "DQ", "I*", "f'", "nff", "huz"

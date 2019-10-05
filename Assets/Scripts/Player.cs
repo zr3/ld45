@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -19,6 +20,13 @@ public class Player : MonoBehaviour
     public float Drag = 0;
 
     private new Transform transform;
+
+    public static Player Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -68,8 +76,12 @@ public class Player : MonoBehaviour
         // drag
         WorldVelocity += -WorldVelocity.normalized * Time.deltaTime;
 
-        // translate
-        transform.position += WorldVelocity * Time.deltaTime;
+        // translate and set y
+        transform.position = new Vector3(
+            transform.position.x + WorldVelocity.x * Time.deltaTime,
+            0,
+            transform.position.z + WorldVelocity.z * Time.deltaTime
+        );
     }
 
     void FixedUpdate()
@@ -80,6 +92,11 @@ public class Player : MonoBehaviour
     {
         HandleInput();
         HandlePhysics();
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        WorldVelocity /= -2;
     }
 
     //private void OnDrawGizmos()
