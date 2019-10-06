@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     public float Drag = 0;
 
     private new Transform transform;
+    private Animator animator;
 
     public static Player Instance;
 
@@ -48,8 +49,10 @@ public class Player : MonoBehaviour
     void Start()
     {
         transform = GetComponent<Transform>();
+        animator = GetComponentInChildren<Animator>();
         IntendedDirection = transform.rotation;
         WorldVelocity = Vector3.zero;
+        UpdateInventoryFX();
     }
 
     private void HandleInput()
@@ -123,6 +126,9 @@ public class Player : MonoBehaviour
             0,
             transform.position.z + WorldVelocity.z * Time.deltaTime
         );
+
+        // animation
+        animator.SetBool("IsMoving", WorldVelocity.magnitude > 0.1);
     }
 
     void FixedUpdate()
@@ -140,15 +146,26 @@ public class Player : MonoBehaviour
         WorldVelocity /= -2;
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    var anchor = transform.position + Vector3.up * 2;
-    //    var scale = 5f;
-    //    Gizmos.color = Color.green;
-    //    Gizmos.DrawRay(anchor, Power * PowerFactor * transform.forward * Time.deltaTime * scale);
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawRay(anchor, Vector3.Dot(WorldVelocity, transform.right) * -KeelDrag * transform.right * Time.deltaTime * scale);
-    //    Gizmos.color = Color.magenta;
-    //    Gizmos.DrawRay(anchor, -WorldVelocity.normalized * Time.deltaTime * scale);
-    //}
+    [Header("Inventory")]
+    public GameObject Boat;
+    public GameObject Bananas;
+    public GameObject Sailor;
+    public GameObject Sail;
+    public GameObject Letter;
+    public ParticleSystem PoofParticles;
+
+    public void UpdateInventoryFX()
+    {
+        var go = GameOrchestrator.Instance;
+        Boat.SetActive(go.HasBoat);
+        GetComponent<FloatY>().Offset = go.HasBoat ? 0.4f : 0f;
+        for (int i = 0; i < 12; ++i)
+        {
+            Bananas.transform.GetChild(i).gameObject.SetActive(i <= go.Bananas - 1);
+        }
+        Sailor.SetActive(go.SavedSailor && !go.DeliveredSailor);
+        Sail.SetActive(go.HasSail);
+        Letter.SetActive(go.HasLoveLetter);
+        PoofParticles.Play();
+    }
 }

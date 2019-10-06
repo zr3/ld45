@@ -10,9 +10,35 @@ public class GameOrchestrator : MonoBehaviour
 {
     [Header("State")]
     public int Time = 12;
-    public int Bananas = 0;
-    public bool HasBoat;
-    public bool HasSail;
+    private int bananas = 0;
+    public int Bananas
+    {
+        get => bananas;
+        set {
+            bananas = value;
+            Player.Instance.UpdateInventoryFX();
+        }
+    }
+    private bool hasBoat;
+    public bool HasBoat
+    {
+        get => hasBoat;
+        set {
+            hasBoat = value;
+            Player.Instance.UpdateInventoryFX();
+            Player.Instance.GetComponentInChildren<Animator>().SetBool("InWater", !hasBoat);
+        }
+    }
+    private bool hasSail;
+    public bool HasSail
+    {
+        get => hasSail;
+        set
+        {
+            hasSail = value;
+            Player.Instance.UpdateInventoryFX();
+        }
+    }
     private bool hasSlowJig;
     public bool HasSlowJig {
         get => hasSlowJig;
@@ -27,8 +53,26 @@ public class GameOrchestrator : MonoBehaviour
         }
     }
     public int SharksKilled = 0;
-    public bool SavedSailor;
-    public bool DeliveredSailor;
+    public bool savedSailor;
+    public bool SavedSailor
+    {
+        get => savedSailor;
+        set
+        {
+            savedSailor = value;
+            Player.Instance.UpdateInventoryFX();
+        }
+    }
+    public bool deliveredSailor;
+    public bool DeliveredSailor
+    {
+        get => deliveredSailor;
+        set
+        {
+            deliveredSailor = value;
+            Player.Instance.UpdateInventoryFX();
+        }
+    }
     private bool hasSadShanty;
     public bool HasSadShanty
     {
@@ -73,8 +117,26 @@ public class GameOrchestrator : MonoBehaviour
             hasSouthEldritch = value;
         }
     }
-    public bool HasLoveLetter;
-    public bool DeliveredLoveLetter;
+    public bool hasLoveLetter;
+    public bool HasLoveLetter
+    {
+        get => hasLoveLetter;
+        set
+        {
+            hasLoveLetter = value;
+            Player.Instance.UpdateInventoryFX();
+        }
+    }
+    public bool deliveredLoveLetter;
+    public bool DeliveredLoveLetter
+    {
+        get => deliveredLoveLetter;
+        set
+        {
+            deliveredLoveLetter = value;
+            Player.Instance.UpdateInventoryFX();
+        }
+    }
     private bool hasHappyJig;
     public bool HasHappyJig
     {
@@ -117,6 +179,7 @@ public class GameOrchestrator : MonoBehaviour
             hasToThePast = value;
         }
     }
+
     public bool FestivalActive;
 
     [Header("Configuration")]

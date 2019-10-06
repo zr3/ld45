@@ -39,8 +39,8 @@ public class CharacterCamera : MonoBehaviour
         {
             rigPosition = TranslateTarget.position
                 + TranslateTarget.right * Offset.x
-                + TranslateTarget.up * Offset.y
                 + TranslateTarget.forward * Offset.z;
+            rigPosition.y = Offset.y;
         }
 
         transform.position = Vector3.SmoothDamp(transform.position, rigPosition, ref translateVelocity, MoveSmoothness);

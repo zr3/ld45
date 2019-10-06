@@ -23,6 +23,7 @@ public class NPCBase : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameOrchestrator.Instance.UnfocusCamera();
+        if (GameOrchestrator.Instance)
+            GameOrchestrator.Instance.UnfocusCamera();
     }
 }
