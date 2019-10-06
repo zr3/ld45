@@ -14,10 +14,10 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
-  - 
+  - PlayerAware
+  - Player
+  - Waypoint
+  - MapMarker
   - 
   - 
   - 
