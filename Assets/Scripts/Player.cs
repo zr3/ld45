@@ -11,7 +11,9 @@ public class Player : MonoBehaviour
         SlowJig,
         SadShanty,
         HappyJig,
-        ToThePast
+        ToThePast,
+        NorthEldritch,
+        SouthEldritch
     }
 
     [Header("State")]
@@ -21,7 +23,7 @@ public class Player : MonoBehaviour
     public bool SailActive = false;
     public bool SailAvailable = false;
     public int SelectedSong = 0;
-    public Song[] KnownSongs;
+    public List<Song> KnownSongs;
 
     [Header("Configuration")]
     public float RotationSensitivity = 360;
@@ -39,7 +41,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        KnownSongs = new[] { Song.Windwards };
+        KnownSongs = new List<Song>(5);
     }
 
     void Start()
@@ -60,17 +62,17 @@ public class Player : MonoBehaviour
         Drag = Mathf.Clamp01(-directionInput.y);
         IntendedDirection *= Quaternion.AngleAxis(RotationSensitivity * Time.deltaTime * directionInput.x, Vector3.up);
         SailActive = SailAvailable && Input.GetKey(KeyCode.LeftShift);
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && KnownSongs.Any())
         {
             SelectedSong--;
-            if (SelectedSong < 0) SelectedSong = KnownSongs.Length - 1;
+            if (SelectedSong < 0) SelectedSong = KnownSongs.Count - 1;
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && KnownSongs.Any())
         {
             SelectedSong++;
-            if (SelectedSong >= KnownSongs.Length) SelectedSong = 0;
+            if (SelectedSong >= KnownSongs.Count) SelectedSong = 0;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && KnownSongs.Any())
         {
             GameOrchestrator.Instance.PlaySong(KnownSongs[SelectedSong]);
         }

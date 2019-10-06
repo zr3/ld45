@@ -21,7 +21,7 @@ public class MessageController : MonoBehaviour {
         text = messagePanel.GetComponentInChildren<Text>();
         creepyWords = new List<string>
         {
-            "c'thulu", "dark", "doom", "d'oom", "doom", "ne'thet", "hell", "xo#8", "FEEDFEEDFEED", "will eat you", "f02 02b", " leavenow ", "monsters", "FEED IT  ", "die", "---------", "what did you say to me you little", "", "Z", "X", "T", "DQ", "I*", "f'", "nff", "huz"
+            "c'thulu", "dark", "doom", "d'oom", "doom", "ne'thet", "hell", "xo#8", "will eat you", "f02 02b", " leavenow ", "monsters", "die", "---------", "what did you say to me you little", "", "Z", "X", "T", "DQ", "I*", "f'", "nff", "huz"
         };
     }
 
@@ -55,8 +55,8 @@ public class MessageController : MonoBehaviour {
                     break;
                 }
                 currentString += c;
-                text.text = Random.Range(0, 3) == 0 ? InjectCreep(currentString) : currentString;
-                yield return new WaitForSeconds(Random.Range(0.05f, 0.15f));
+                text.text = Random.Range(0, 10) == -1 ? InjectCreep(currentString) : currentString;
+                yield return null;
             }
             text.text = currentMessage;
             if (interruptCurrentMessage)

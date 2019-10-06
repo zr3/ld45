@@ -8,6 +8,8 @@ public class FollowWaypoints : MonoBehaviour
 
     public int CurrentWaypoint;
 
+    public float RotationSharpness = 0.85f;
+
     private new Transform transform;
 
     private void Start()
@@ -17,7 +19,7 @@ public class FollowWaypoints : MonoBehaviour
 
     public void Update()
     {
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation((Waypoints[CurrentWaypoint].transform.position - transform.position).normalized), 0.99f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation((Waypoints[CurrentWaypoint].transform.position - transform.position).normalized), RotationSharpness * Time.deltaTime);
         transform.Translate(Vector3.forward * Time.deltaTime);
     }
 

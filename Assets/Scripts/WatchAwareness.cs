@@ -9,6 +9,8 @@ public class WatchAwareness : MonoBehaviour
 
     bool touchingPlayer = false;
 
+    private float lastTriggerTime;
+
     private void Start()
     {
         if (ReactToSong)
@@ -27,7 +29,8 @@ public class WatchAwareness : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Player"))
         {
-            gameObject.SendMessageUpwards(MessageToSend, SendMessageOptions.DontRequireReceiver);
+            if (lastTriggerTime < Time.time - 5)
+                gameObject.SendMessageUpwards(MessageToSend, SendMessageOptions.DontRequireReceiver);
             touchingPlayer = true;
         }
     }
@@ -36,7 +39,6 @@ public class WatchAwareness : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Player"))
         {
-            gameObject.SendMessageUpwards(MessageToSend, SendMessageOptions.DontRequireReceiver);
             touchingPlayer = false;
         }
     }
