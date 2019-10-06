@@ -5,12 +5,23 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public enum Song
+    {
+        Windwards,
+        SlowJig,
+        SadShanty,
+        HappyJig,
+        ToThePast
+    }
+
     [Header("State")]
     public Quaternion IntendedDirection;
     public Vector3 WorldVelocity;
     public float PowerFactor = 5;
     public bool SailActive = false;
     public bool SailAvailable = false;
+    public int SelectedSong = 0;
+    public Song[] KnownSongs;
 
     [Header("Configuration")]
     public float RotationSensitivity = 360;
@@ -28,6 +39,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        KnownSongs = new[] { Song.Windwards };
     }
 
     void Start()
@@ -48,6 +60,20 @@ public class Player : MonoBehaviour
         Drag = Mathf.Clamp01(-directionInput.y);
         IntendedDirection *= Quaternion.AngleAxis(RotationSensitivity * Time.deltaTime * directionInput.x, Vector3.up);
         SailActive = SailAvailable && Input.GetKey(KeyCode.LeftShift);
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            SelectedSong--;
+            if (SelectedSong < 0) SelectedSong = KnownSongs.Length - 1;
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            SelectedSong++;
+            if (SelectedSong >= KnownSongs.Length) SelectedSong = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameOrchestrator.Instance.PlaySong(KnownSongs[SelectedSong]);
+        }
     }
 
     private void HandlePhysics()

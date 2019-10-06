@@ -38,6 +38,7 @@ public class NPCHungryGuy : MonoBehaviour
             MessageController.AddMessage("My great uncle's grandma's friend's dog's wife's friend's great great granddaughter taught me this song.");
             MessageController.AddMessage("She always seemed to be moving pretty quick.");
             MessageController.AddMessage("You learned the SLOW JIG!");
+            GameOrchestrator.Instance.HasSlowJig = true;
             MessageController.AddMessage("Now you can slow down time!");
 
         }

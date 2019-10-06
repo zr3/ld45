@@ -14,7 +14,8 @@ public class BoatItem : MonoBehaviour
     void ItemActivate()
     {
         Player.Instance.MaxSpeed = NewMaxSpeed;
-        MessageController.AddMessage("You found a boat!");
+        MessageController.AddMessage("You found a BOAT! Now you don't have to worry about drowning!");
+        GameOrchestrator.Instance.HasBoat = true;
         Destroy(gameObject);
     }
 }

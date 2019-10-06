@@ -19,15 +19,17 @@ not even time
     - reunite lovers
         - bring letter from one to the other
         - learn happy jig
+    - shipwrecked guy ✅
+        - gives sail and kills himself
     - feed hungry guy ✅
         - gather 5 bananas and give
         - teaches time slowdown song
-    - heal mariner
+    - heal mariner ✅
         - play sad song
         - gives eldritch tip
-    - save person from sharks
-        - bring to wife
-        - learn happy jig
+    - save person from sharks ✅
+        - bring to wife ✅
+        - learn sad song
     - entertain bored guy
         - play happy jig
         - gives eldritch tip

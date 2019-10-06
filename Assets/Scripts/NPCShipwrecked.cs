@@ -28,6 +28,7 @@ public class NPCShipwrecked : MonoBehaviour
             MessageController.AddMessage("Welp..");
             MessageController.AddMessage("I've no reason to live anymore. Cheers!");
             Player.Instance.SailAvailable = true;
+            GameOrchestrator.Instance.HasSail = true;
             Destroy(gameObject);
         } else
         {
