@@ -234,6 +234,8 @@ public class GameOrchestrator : MonoBehaviour
 
     IEnumerator DailyClock()
     {
+        yield return new WaitForSeconds(1);
+        ScreenFader.FadeIn();
         NotifyTime();
         yield return new WaitForSeconds(HourTime);
         while (Time < 22)
@@ -243,6 +245,8 @@ public class GameOrchestrator : MonoBehaviour
             yield return new WaitForSeconds(HourTime);
         }
         Player.Instance.InputBlockers++;
+        ScreenFader.FadeOut();
+        yield return new WaitForSeconds(1);
         MessageController.AddMessage("The festival has started.");
         FestivalActive = true;
         yield return new WaitForSeconds(2.5f);
@@ -252,16 +256,17 @@ public class GameOrchestrator : MonoBehaviour
         }
         Player.Instance.transform.position = FestivalTeleport.position;
         Player.Instance.transform.rotation = FestivalTeleport.rotation;
-        yield return new WaitForSeconds(3);
+        ScreenFader.FadeIn();
+        yield return new WaitForSeconds(1);
         Player.Instance.InputBlockers--;
-        HourTime *= 3;
-        while (Time < 24)
-        {
-            Time++;
-            NotifyTime();
-            yield return new WaitForSeconds(HourTime);
-        }
-        MessageController.AddMessage("The world is ending.");
+        MessageController.AddMessage("welp....");
+        MessageController.AddMessage("you've run out of time....");
+        MessageController.AddMessage("more importantly at the moment....");
+        MessageController.AddMessage("I've run out of time....");
+        MessageController.AddMessage("(there was going to be a festival here, and a horror that could be summoned by song)");
+        MessageController.AddMessage("(unfortunately, that was a bit ambitious for 48 hours...)");
+        MessageController.AddMessage("(so the world will just end! you will be warped back to the beginning, with nothing but your memories of songs)");
+        ScreenFader.FadeOutThen(() => SceneManager.LoadScene("World"));
     }
 
     void NotifyTime()

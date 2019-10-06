@@ -59,3 +59,10 @@ not even time
 - couldn't find shipwreck
 - playerprefs might not work
 - not clear how to play song
+
+## credit
+- mrbiscuits
+- https://www.fontsquirrel.com/fonts/leander?q%5Bterm%5D=pirate&q%5Bsearch_check%5D=Y
+- https://www.youtube.com/watch?v=sYM0ys-X0J0
+- nohidea idk pack https://sellfy.com/p/7sz6/
+- serum vst

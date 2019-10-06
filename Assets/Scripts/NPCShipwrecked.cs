@@ -26,7 +26,7 @@ public class NPCShipwrecked : NPCBase
             MessageController.AddMessage("I wrecked me ship up on these rocks!");
             MessageController.AddMessage("... obviously ...");
             MessageController.AddMessage("I won't be needin' this sail.");
-            MessageController.AddMessage("You got a SAIL for your boat! Now you can go even faster!");
+            MessageController.AddMessage("You got a SAIL for your boat! Hold [shift] to use it. Now you can go even faster!");
             MessageController.AddMessage("Welp..");
             MessageController.AddMessage("I've no reason to live anymore. Cheers!");
             Player.Instance.SailAvailable = true;
