@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     public bool SailAvailable = false;
     public int SelectedSong = 0;
     public List<Song> KnownSongs;
+    public int InputBlockers = 0;
 
     [Header("Configuration")]
     public float RotationSensitivity = 360;
@@ -53,6 +54,13 @@ public class Player : MonoBehaviour
 
     private void HandleInput()
     {
+        if (InputBlockers > 0)
+        {
+            Power = 0;
+            Drag = 1;
+            SailActive = false;
+            return;
+        }
         Vector2 directionInput = new Vector2(
             Input.GetAxis("Horizontal"),
             Input.GetAxis("Vertical")

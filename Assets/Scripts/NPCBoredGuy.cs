@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCBoredGuy : MonoBehaviour
+public class NPCBoredGuy : NPCBase
 {
     void AwareOfPlayer()
     {
+        MessageController.SetLookTarget(transform);
         MessageController.AddMessage("Hey.");
     }
 
     void TalkToPlayer()
     {
+        MessageController.SetLookTarget(transform);
         if (!GameOrchestrator.Instance.BoredGuyHealed)
         {
             MessageController.AddMessage("... *sigh*...");
@@ -26,6 +28,7 @@ public class NPCBoredGuy : MonoBehaviour
 
     void SongPlayed(Player.Song song)
     {
+        MessageController.SetLookTarget(transform);
         if (song == Player.Song.HappyJig)
         {
             MessageController.AddMessage("Ahhhhhh....");

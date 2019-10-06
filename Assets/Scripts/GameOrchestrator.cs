@@ -117,10 +117,14 @@ public class GameOrchestrator : MonoBehaviour
             hasToThePast = value;
         }
     }
+    public bool FestivalActive;
 
     [Header("Configuration")]
     public float HourTime = 10;
     public bool CheatsActive = true;
+    public GameObject[] FestivalActivations;
+    public Transform FestivalTeleport;
+    public CharacterCamera characterCamera;
 
     private Coroutine dayRoutine;
 
@@ -132,6 +136,7 @@ public class GameOrchestrator : MonoBehaviour
     }
     void Start()
     {
+        characterCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CharacterCamera>();
         dayRoutine = StartCoroutine(DailyClock());
         LoadGame();
     }
@@ -157,6 +162,11 @@ public class GameOrchestrator : MonoBehaviour
             ResetGame();
             SceneManager.LoadScene("World");
         }
+        // warp to festival
+        if (Input.GetKey(KeyCode.F10))
+        {
+            Time = 22;
+        }
     }
 
     IEnumerator DailyClock()
@@ -169,7 +179,19 @@ public class GameOrchestrator : MonoBehaviour
             NotifyTime();
             yield return new WaitForSeconds(HourTime);
         }
+        Player.Instance.InputBlockers++;
         MessageController.AddMessage("The festival has started.");
+        FestivalActive = true;
+        yield return new WaitForSeconds(2.5f);
+        foreach (var gob in FestivalActivations)
+        {
+            gob.SetActive(true);
+        }
+        Player.Instance.transform.position = FestivalTeleport.position;
+        Player.Instance.transform.rotation = FestivalTeleport.rotation;
+        yield return new WaitForSeconds(3);
+        Player.Instance.InputBlockers--;
+        HourTime *= 3;
         while (Time < 24)
         {
             Time++;
@@ -248,5 +270,30 @@ public class GameOrchestrator : MonoBehaviour
     {
         PlayerPrefs.SetString("songs", String.Join("|", Player.Instance.KnownSongs.Select(s => s.ToString())));
         PlayerPrefs.Save();
+    }
+
+    public void FocusCamera(Transform target)
+    {
+        characterCamera.LookTarget = target;
+        characterCamera.LookSharpness = 1;
+    }
+
+    public void UnfocusCamera()
+    {
+        if (Player.Instance)
+        {
+            characterCamera.LookTarget = Player.Instance.transform;
+            StartCoroutine(ResetCameraTightness());
+        }
+    }
+
+    IEnumerator ResetCameraTightness()
+    {
+        while (characterCamera.LookSharpness < 1000)
+        {
+            characterCamera.LookSharpness += 5;
+            yield return null;
+        }
+        characterCamera.LookSharpness = 1000;
     }
 }

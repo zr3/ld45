@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCSadGuy : MonoBehaviour
+public class NPCSadGuy : NPCBase
 {
     void AwareOfPlayer()
     {
+        MessageController.SetLookTarget(transform);
         MessageController.AddMessage("...");
     }
 
     void TalkToPlayer()
     {
+        MessageController.SetLookTarget(transform);
         if (!GameOrchestrator.Instance.SadGuyHealed)
         {
             MessageController.AddMessage("... *sigh*...");
@@ -25,6 +27,7 @@ public class NPCSadGuy : MonoBehaviour
 
     void SongPlayed(Player.Song song)
     {
+        MessageController.SetLookTarget(transform);
         if (song == Player.Song.SadShanty)
         {
             MessageController.AddMessage("Ahhhhhh....");

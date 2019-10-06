@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCSailor : MonoBehaviour
+public class NPCSailor : NPCBase
 {
     void AwareOfPlayer()
     {
+        MessageController.SetLookTarget(transform);
         MessageController.AddMessage("Ahoy!");
     }
 
     void TalkToPlayer()
     {
+        MessageController.SetLookTarget(transform);
         if (!GameOrchestrator.Instance.HasLoveLetter && !GameOrchestrator.Instance.DeliveredLoveLetter)
         {
             MessageController.AddMessage("Great day for a sail, innit?");

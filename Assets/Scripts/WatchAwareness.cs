@@ -9,7 +9,7 @@ public class WatchAwareness : MonoBehaviour
 
     bool touchingPlayer = false;
 
-    private float lastTriggerTime;
+    private float lastTriggerTime = -6;
 
     private void Start()
     {
@@ -30,7 +30,10 @@ public class WatchAwareness : MonoBehaviour
         if (other.gameObject.tag.Equals("Player"))
         {
             if (lastTriggerTime < Time.time - 5)
+            {
                 gameObject.SendMessageUpwards(MessageToSend, SendMessageOptions.DontRequireReceiver);
+                lastTriggerTime = Time.time;
+            }
             touchingPlayer = true;
         }
     }

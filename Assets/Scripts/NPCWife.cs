@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCWife : MonoBehaviour
+public class NPCWife : NPCBase
 {
     void AwareOfPlayer()
     {
+        MessageController.SetLookTarget(transform);
         if (!GameOrchestrator.Instance.SavedSailor)
             MessageController.AddMessage("yoo hoo!");
         else if (!GameOrchestrator.Instance.DeliveredSailor)
@@ -16,6 +17,7 @@ public class NPCWife : MonoBehaviour
 
     void TalkToPlayer()
     {
+        MessageController.SetLookTarget(transform);
         if (!GameOrchestrator.Instance.SavedSailor)
         {
             MessageController.AddMessage("Well hello there, darling.");

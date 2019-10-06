@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCHungryGuy : MonoBehaviour
+public class NPCHungryGuy : NPCBase
 {
     void AwareOfPlayer()
     {
+        MessageController.SetLookTarget(transform);
+        MessageController.AddMessage("*burp*");
         // ui effect and animation
     }
 
     void TalkToPlayer()
     {
+        MessageController.SetLookTarget(transform);
         if (GameOrchestrator.Instance.Bananas < 1)
         {
             MessageController.AddMessage("*uurgff*");

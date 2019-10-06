@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPC : MonoBehaviour
+public class NPC : NPCBase
 {
     private void Start()
     {
@@ -16,11 +16,13 @@ public class NPC : MonoBehaviour
     }
     void AwareOfPlayer() {
         // ui effect and animation
+        MessageController.SetLookTarget(transform);
         MessageController.AddMessage("Hey!");
     }
 
     void TalkToPlayer()
     {
+        MessageController.SetLookTarget(transform);
         if (!GameOrchestrator.Instance.HasBoat)
         {
             MessageController.AddMessage("Listen! You must be new here.");

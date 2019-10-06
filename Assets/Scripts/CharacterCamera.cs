@@ -5,7 +5,8 @@ using UnityEngine;
 public class CharacterCamera : MonoBehaviour
 {
     [Header("State")]
-    public Transform Target;
+    public Transform LookTarget;
+    public Transform TranslateTarget;
 
     [Header("Configuration")]
     public Vector3 LookOffset;
@@ -27,17 +28,19 @@ public class CharacterCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        if (Target)
+        if (LookTarget)
         {
-            rigPosition = Target.position
-                + Target.right * Offset.x
-                + Target.up * Offset.y
-                + Target.forward * Offset.z;
-
-            lookTarget = Target.position
-                + Target.right * LookOffset.x
-                + Target.up * LookOffset.y
-                + Target.forward * LookOffset.z;
+            lookTarget = LookTarget.position
+                + LookTarget.right * LookOffset.x
+                + LookTarget.up * LookOffset.y
+                + LookTarget.forward * LookOffset.z;
+        }
+        if (TranslateTarget)
+        {
+            rigPosition = TranslateTarget.position
+                + TranslateTarget.right * Offset.x
+                + TranslateTarget.up * Offset.y
+                + TranslateTarget.forward * Offset.z;
         }
 
         transform.position = Vector3.SmoothDamp(transform.position, rigPosition, ref translateVelocity, MoveSmoothness);

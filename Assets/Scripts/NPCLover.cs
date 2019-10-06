@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCLover : MonoBehaviour
+public class NPCLover : NPCBase
 {
     void AwareOfPlayer()
     {
+        MessageController.SetLookTarget(transform);
         MessageController.AddMessage("Hey!");
     }
 
     void TalkToPlayer()
     {
+        MessageController.SetLookTarget(transform);
         if (!GameOrchestrator.Instance.HasLoveLetter && !GameOrchestrator.Instance.DeliveredLoveLetter)
         {
             MessageController.AddMessage("You look like you might be able to help me!");

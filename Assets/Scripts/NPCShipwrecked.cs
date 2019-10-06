@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCShipwrecked : MonoBehaviour
+public class NPCShipwrecked : NPCBase
 {
     private float initialMaxSpeed;
 
@@ -12,11 +12,13 @@ public class NPCShipwrecked : MonoBehaviour
     }
     void AwareOfPlayer()
     {
+        MessageController.SetLookTarget(transform);
         MessageController.AddMessage("OYYYYYYY!");
     }
 
     void TalkToPlayer()
     {
+        MessageController.SetLookTarget(transform);
         // if they have the boat
         if (Player.Instance.MaxSpeed > initialMaxSpeed)
         {

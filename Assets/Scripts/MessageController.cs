@@ -25,6 +25,12 @@ public class MessageController : MonoBehaviour {
         };
     }
 
+    private Transform lookTarget;
+    public static void SetLookTarget(Transform target)
+    {
+        _instance.lookTarget = target;
+    }
+
     public static void AddMessage(string message, bool interrupt = false, bool onlyLog = false)
     {
         MessageLogger.LogMessage(message);
@@ -42,15 +48,17 @@ public class MessageController : MonoBehaviour {
 
     private IEnumerator PlayMessages()
     {
+        Player.Instance.InputBlockers++;
         messagePanel.SetActive(true);
         playingMessages = true;
         while (playingMessages)
         {
+            if (lookTarget != null) GameOrchestrator.Instance.FocusCamera(lookTarget);
             var currentMessage = messages.Dequeue();
             var currentString = string.Empty;
             foreach (char c in currentMessage)
             {
-                if (interruptCurrentMessage)
+                if (interruptCurrentMessage || Input.GetKeyDown(KeyCode.Return))
                 {
                     break;
                 }
@@ -73,6 +81,8 @@ public class MessageController : MonoBehaviour {
         }
         text.text = string.Empty;
         messagePanel.SetActive(false);
+        Player.Instance.InputBlockers--;
+        GameOrchestrator.Instance.UnfocusCamera();
     }
 
     private string InjectCreep(string fitin)

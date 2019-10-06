@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCSharkguy : MonoBehaviour
+public class NPCSharkguy : NPCBase
 {
     void AwareOfPlayer()
     {
+        MessageController.SetLookTarget(transform);
         MessageController.AddMessage("aaaaAAAAHHHaaaaAAAHH!");
     }
 
     void TalkToPlayer()
     {
+        MessageController.SetLookTarget(transform);
         MessageController.AddMessage("*glurb* help!");
         if (GameOrchestrator.Instance.HasBoat)
         {

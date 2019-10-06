@@ -53,3 +53,9 @@ not even time
         - sad song
         - time warp
 - explore
+
+## playtesting
+
+- couldn't find shipwreck
+- playerprefs might not work
+- not clear how to play song
